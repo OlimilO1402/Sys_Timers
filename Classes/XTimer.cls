@@ -72,11 +72,13 @@ Public Property Let Enabled(ByVal Value As Boolean)
 End Property
 
 Public Function Disable() As Boolean
+    'returns the current Enable state and disables the timer
     Disable = m_Enabled
     Me.Enabled = False
 End Function
 
 Public Property Get Interval() As Single
+    'get or set the interval in milliseconds
     Interval = m_Interval
 End Property
 Public Property Let Interval(ByVal Value_ms As Single)
@@ -85,6 +87,7 @@ Public Property Let Interval(ByVal Value_ms As Single)
 End Property
 
 Public Property Get FPS() As Single
+    'get or set the interval in terms of Frames per second
     FPS = 1 / (m_Interval / 1000)
 End Property
 Public Property Let FPS(ByVal Value As Single)

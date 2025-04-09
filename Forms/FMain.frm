@@ -47,21 +47,21 @@ Begin VB.Form FMain
       Width           =   11655
    End
    Begin VB.OptionButton OptDTypLong 
-      Caption         =   "Timer is Long"
+      Caption         =   "Timer (Long)"
       Height          =   375
       Left            =   1800
       TabIndex        =   4
       Top             =   0
       Value           =   -1  'True
-      Width           =   1575
+      Width           =   1815
    End
    Begin VB.OptionButton OptDTypCurrency 
-      Caption         =   "Timer is Currency"
+      Caption         =   "Timer (Currency)"
       Height          =   375
       Left            =   3600
       TabIndex        =   3
       Top             =   0
-      Width           =   1935
+      Width           =   2055
    End
    Begin VB.CommandButton BtnStop 
       Caption         =   "Stop []"
