@@ -3,7 +3,7 @@
   
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Sys_Timers/total.svg)](https://github.com/OlimilO1402/Sys_Timers/releases/download/v1.0.0/Timers_v2025.4.8.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Sys_Timers/total.svg)](https://github.com/OlimilO1402/Sys_Timers/releases/download/v2025.4.9/Timers_v2025.4.9.zip)
 ![GitHub followers](https://img.shields.io/github/followers/OlimilO1402?style=social)
 
 
