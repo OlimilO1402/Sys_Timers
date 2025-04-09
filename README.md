@@ -1,5 +1,5 @@
 # Sys_Timers  
-## high accurate Timer for animations with a max resolution of about 1000 FPS ~ 1.0ms  
+## Very accurate Timer for animations with a resolution of max. 1000 FPS ~ 1.0ms  
   
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/releases/latest)
