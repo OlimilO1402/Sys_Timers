@@ -19,14 +19,16 @@ How does it work?
 The new XTimer does not make use of Windows Events, instead it works with the Listener pattern.  
 This is well known in the Java-world, you can do this in VB the same way, just by using an interface.  
 There is the Interface IListenXTimer with 2 function stubs "Sub Frames(FPS)" and "Sub XTimer()" every object who wants to "listen" to XTimer-messages has to implement this interface.  
-"Sub Frames" fires every second and is just for displaying the frames per second. "Sub XTimer" fires of course every interval.  
-The property Interval is of datatype Single to get or set the timer-interval in milliseconds. But you could also use the property FPS.
 
 ```vba
 Interface IListenXTimer
 Public Sub XTimer()
 Public Sub Frames(ByVal FPS As Long)
 ```
+
+"Sub Frames" fires every second and is just for displaying the frames per second. "Sub XTimer" fires of course every interval.  
+The property Interval is of datatype Single to get or set the timer-interval in milliseconds. But you could also use the property FPS.
+
 ```vba
 class XTimer
 Public Property Get Interval() As Single
@@ -46,6 +48,12 @@ Public Property Let FPS(ByVal Value As Single)
     m_Interval = 1000 / Value
 End Property
 ```
+what is the difference between XTimer and XTimerL?  
+With the class XTimerL, if you set 450 Frames per second, it does just about 333 FPS,   
+because 450 fps are 2.222 ms so it rounds upt to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS 
+
+XTimer uses QueryPerformanceCounter with a Currency. 
+
 Maybe you also want to have a look at the class [Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) 
 
 ![Timers Image](Resources/Timers.png "Timers Image")

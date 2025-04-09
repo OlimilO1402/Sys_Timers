@@ -14,6 +14,7 @@ Begin VB.Form FMain
       Italic          =   0   'False
       Strikethrough   =   0   'False
    EndProperty
+   Icon            =   "FMain.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   5175
    ScaleWidth      =   11715
@@ -53,7 +54,7 @@ Begin VB.Form FMain
       TabIndex        =   4
       Top             =   0
       Value           =   -1  'True
-      Width           =   1815
+      Width           =   1575
    End
    Begin VB.OptionButton OptDTypCurrency 
       Caption         =   "Timer (Currency)"
@@ -61,7 +62,7 @@ Begin VB.Form FMain
       Left            =   3600
       TabIndex        =   3
       Top             =   0
-      Width           =   2055
+      Width           =   1815
    End
    Begin VB.CommandButton BtnStop 
       Caption         =   "Stop []"
