@@ -15,18 +15,28 @@ In fact there are 2 classes both share the same Interface, both are interchangea
 * XTimerL uses the API function timeGetTime together with a locale variable of datatype Long  
 * XTimer  uses the API function QueryPerformanceCounter with a locale variable of datatype Currency  
     
-How does it work?    
-The new XTimer does not make use of Windows Events, instead it works with the Listener pattern.  
+How does it work?   
+1. It measures the time in a continuous loop, and fires when the interval is reached 
+1. In every cycle the XTimer measures the time the program needs during one cycle and subtracts it from the timer interval.  
+   This idea comes from my friend BAGZlash and it makes the XTimer more accurate and stable.  
+2. XTimer does not make use of Windows Events, instead it works with the Listener pattern.  
 This is well known in the Java-world, you can do this in VB the same way, just by using an interface.  
-There is the Interface IListenXTimer with 2 function stubs "Sub Frames(FPS)" and "Sub XTimer()" every object who wants to "listen" to XTimer-messages has to implement this interface.  
+There is the Interface "IListenXTimer" with 2 function stubs "Sub Frames(FPS)" and "Sub XTimer()".    
+In other languages Interfaces start with the letter "I", some people say it is because the "I" stands for Interface.
+I say, the I is not an abbreviation, in fact it's a word, it just stands for I, like me, ego, ich.  
+So for the XTimer the Interface says "I Listen to XTimer" ... and I do whatever, whenever XTimer says I have to.  
+Every object who wants to "listen" to XTimer-messages simply implement this interface.
+
 ```vba
 Interface IListenXTimer
 Public Sub XTimer()
 Public Sub Frames(ByVal FPS As Long)
 ```
 
-"Sub Frames" fires every second and is just for displaying the frames per second. "Sub XTimer" fires of course every interval.  
-The property Interval is of datatype Single to get or set the timer-interval in milliseconds. But you could also use the property FPS.
+"Sub Frames" fires every second and is e.g. for displaying the frames per second, or a count-down  
+"Sub XTimer" fires of course every interval.  
+The "Property Interval" is of datatype Single to get or set the timer-interval in milliseconds, for this you can also use the "Property FPS".  
+
 ```vba
 class XTimer
 Public Property Get Interval() As Single
@@ -52,3 +62,7 @@ because 450 fps are 2.222 ms so it rounds upt to 3 ms. Switch to the "Timer (Cur
 Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the winapi function QueryFerformanceCounter either.  
 
 ![Timers Image](Resources/Timers.png "Timers Image")
+
+
+
+1. The XTimer measures the time the program needs during the "timer event" and it subtracts it from the timer interval to be accurate and stable, . The XTimer is more accurate and stable. .  

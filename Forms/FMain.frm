@@ -22,7 +22,7 @@ Begin VB.Form FMain
    Begin VB.ComboBox CmbFPS 
       Height          =   345
       Left            =   6240
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   0
       Width           =   975
    End
@@ -51,7 +51,7 @@ Begin VB.Form FMain
       Caption         =   "Timer (Long)"
       Height          =   375
       Left            =   1800
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   0
       Value           =   -1  'True
       Width           =   1575
@@ -60,7 +60,7 @@ Begin VB.Form FMain
       Caption         =   "Timer (Currency)"
       Height          =   375
       Left            =   3600
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   0
       Width           =   1815
    End
@@ -92,7 +92,7 @@ Begin VB.Form FMain
       Caption         =   "FPS:"
       Height          =   375
       Left            =   5760
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   60
       Width           =   375
    End
@@ -109,9 +109,23 @@ Private m_XTimer As XTimer
 Private X As Long
 Private Y As Long
 Private m_Initializing As Boolean
+Private Const VK_MEDIA_PLAY_PAUSE As Long = &HB3
+
+Private Sub BtnNext_KeyDown(KeyCode As Integer, Shift As Integer):         HandleMediaPlayPause KeyCode: End Sub
+Private Sub BtnPlayPause_KeyDown(KeyCode As Integer, Shift As Integer):    HandleMediaPlayPause KeyCode: End Sub
+Private Sub BtnStop_KeyDown(KeyCode As Integer, Shift As Integer):         HandleMediaPlayPause KeyCode: End Sub
+Private Sub CmbFPS_KeyDown(KeyCode As Integer, Shift As Integer):          HandleMediaPlayPause KeyCode: End Sub
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer):            HandleMediaPlayPause KeyCode: End Sub
+Private Sub OptDTypCurrency_KeyDown(KeyCode As Integer, Shift As Integer): HandleMediaPlayPause KeyCode: End Sub
+Private Sub OptDTypLong_KeyDown(KeyCode As Integer, Shift As Integer):     HandleMediaPlayPause KeyCode: End Sub
+Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer):        HandleMediaPlayPause KeyCode: End Sub
+Private Sub HandleMediaPlayPause(KeyCode As Integer)
+    If KeyCode = VK_MEDIA_PLAY_PAUSE Then BtnPlayPause_Click
+End Sub
 
 Private Sub Form_Load()
     m_Initializing = True
+    Me.Caption = "Timers v" & App.Major & "." & App.Minor & "." & App.Revision
     Set m_Thread = MNew.Thread(EThreadPriority.PRIORITY_TIME_CRITICAL, 4)
     Set m_XTimer = MNew.XTimerL(Me, 1000 / 60)
     BtnPlayPause.Caption = "Play |>"
@@ -192,3 +206,4 @@ Private Sub OptDTypLong_Click()
     Set m_XTimer = MNew.XTimerL(Me, m_XTimer.Interval)
     m_XTimer.Enabled = en
 End Sub
+
