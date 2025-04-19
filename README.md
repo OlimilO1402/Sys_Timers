@@ -8,9 +8,13 @@
 
 
 Project started around 2000.  
-This example shows how to do animations without a Timer control. The VBs intrinsic Timer Control has some disadvantages.  
-The Timer control is not very accurate, the minimum resolution is about 55ms, it uses a windows event, so it is not very stable and it does not even exist in VBA.  
-Maybe you remember the class XTimer from ActiveVB. This repo contains the improved version of the XTimer class.   
+This example shows how to do animations without a Timer control. The VBs intrinsic Timer Control has some disadvantages:  
+* The Timer control is not very accurate, 
+* the minimum resolution is only about 55ms, 
+* it uses a windows event, so it is not very stable and 
+* it does not even exist in VBA.  
+Maybe you remember the class xTimer from ActiveVB, it tried to address this problems but had some flaws you can find it in [tipp0011!](https://www.activevb.de/tipps/vb6tipps/tipp0011.html).  
+This repo contains the improved version of the XTimer class.   
 In fact there are 2 classes both share the same Interface, both are interchangeable even during timer-runtime.   
 * XTimerL uses the API function timeGetTime together with a locale variable of datatype Long  
 * XTimer  uses the API function QueryPerformanceCounter with a locale variable of datatype Currency  
@@ -18,7 +22,7 @@ In fact there are 2 classes both share the same Interface, both are interchangea
 How does it work?   
 1. It measures the time in a continuous loop, and fires when the interval is reached 
 1. In every cycle the XTimer measures the time the program needs during one cycle and subtracts it from the interval. 
-   This idea comes from my friend BAGZlash and it makes the XTimer more accurate and stable.  
+   By the way, this idea comes from my friend BAGZlash, it makes the XTimer really smooth and stable.  
 2. XTimer does not make use of Windows Events, instead it works with the Listener pattern.  
 This is well known in the Java-world, you can do this in VB the same way, just by using an interface.  
 There is the Interface "IListenXTimer" with 2 function stubs "Sub Frames(FPS)" and "Sub XTimer()".    
