@@ -13,6 +13,7 @@ This example shows how to do animations without a Timer control. The VBs intrins
 * the minimum resolution is only about 55ms, 
 * it uses a windows event, so it is not very stable and 
 * it does not even exist in VBA.  
+  
 Maybe you remember the class xTimer from ActiveVB, it tried to address this problems but had some flaws you can find it in [tipp0011!](https://www.activevb.de/tipps/vb6tipps/tipp0011.html).  
 This repo contains the improved version of the XTimer class.   
 In fact there are 2 classes both share the same Interface, both are interchangeable even during timer-runtime.   
