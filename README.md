@@ -66,5 +66,6 @@ With the class XTimerL, if you set 450 Frames per second, it does just about 333
 because 450 fps are 2.222 ms so it rounds up to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS.  
   
 Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the QueryPerformance winapi either.  
-
+  
 ![Timers Image](Resources/Timers.png "Timers Image")
+![SpaceRace1973 Image](Resources/SpaceRace1973.png "SpaceRace1973 Image")
