@@ -63,11 +63,8 @@ End Property
 ```
 what is the difference between XTimer and XTimerL?  
 With the class XTimerL, if you set 450 Frames per second, it does just about 333 FPS,   
-because 450 fps are 2.222 ms so it rounds upt to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS  
-Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the winapi function QueryFerformanceCounter either.  
+because 450 fps are 2.222 ms so it rounds up to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS.  
+  
+Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the QueryPerformance winapi either.  
 
 ![Timers Image](Resources/Timers.png "Timers Image")
-
-
-
-1. The XTimer measures the time the program needs during the "timer event" and it subtracts it from the timer interval to be accurate and stable, . The XTimer is more accurate and stable. .  
