@@ -17,7 +17,7 @@ In fact there are 2 classes both share the same Interface, both are interchangea
     
 How does it work?   
 1. It measures the time in a continuous loop, and fires when the interval is reached 
-1. In every cycle the XTimer measures the time the program needs during one cycle and subtracts it from the timer interval.  
+1. In every cycle the XTimer measures the time the program needs during one cycle and subtracts it from the interval. 
    This idea comes from my friend BAGZlash and it makes the XTimer more accurate and stable.  
 2. XTimer does not make use of Windows Events, instead it works with the Listener pattern.  
 This is well known in the Java-world, you can do this in VB the same way, just by using an interface.  
