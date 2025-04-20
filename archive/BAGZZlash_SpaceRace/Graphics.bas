@@ -57,6 +57,12 @@ Public FrameBuffer() As RGB
 Public RocketBitmap() As RGB
 Public Background() As RGB
 
+Sub Main()
+    Form1.Show
+    'Form1.MainLoop
+    'Form1.Command1.Value = True
+End Sub
+
 Public Function GetRGB(Col As Long) As RGB
 
 GetRGB.Red = (Col And &HFF&)
@@ -116,7 +122,7 @@ End With
 
 Call SetDIBits(0&, hBitmap, 0&, Abs(tBITMAPINFO.bmiHeader.biHeight), FrameBuffer(0), tBITMAPINFO, DIB_RGB_COLORS)
 
-PB.Picture = HandleToPicture(hBitmap)
+Set PB.Picture = HandleToPicture(hBitmap)
 PB.Refresh
 
 Call DeleteObject(hBitmap)

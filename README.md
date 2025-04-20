@@ -3,7 +3,7 @@
   
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Sys_Timers?style=plastic)](https://github.com/OlimilO1402/Sys_Timers/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Sys_Timers/total.svg)](https://github.com/OlimilO1402/Sys_Timers/releases/download/v2025.4.19/Timers_v2025.4.19.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Sys_Timers/total.svg)](https://github.com/OlimilO1402/Sys_Timers/releases/download/v2025.4.20/Timers_v2025.4.20.zip)
 ![GitHub followers](https://img.shields.io/github/followers/OlimilO1402?style=social)
 
 
@@ -65,9 +65,10 @@ what is the difference between XTimer and XTimerL?
 With the class XTimerL, if you set 450 Frames per second, it does just about 333 FPS,   
 because 450 fps are 2.222 ms so it rounds up to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS.  
   
-Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the QueryPerformance winapi either.  
+As a real world example on how to use the class XTimer, there is a little game called SpaceRace1973 made by BAGZZlash. 
+It is inspired by the game Space Race from Atari in 1973. You can download BAGZZlashs version [here](http://www.activevb.de/cgi-bin/upload/download.pl?id=3961). The version with XTimer you can find in the directory "archive".  
   
-In the directory archive you find a game called SpaceRace by BAGZZlash.  
+Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the QueryPerformance winapi either.  
   
 ![Timers Image](Resources/Timers.png "Timers Image")
 ![SpaceRace Image](Resources/SpaceRace.png "SpaceRace Image")

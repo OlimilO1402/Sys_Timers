@@ -1,9 +1,10 @@
 VERSION 5.00
 Begin VB.Form Form1 
+   BorderStyle     =   3  'Fester Dialog
    Caption         =   "Space race"
    ClientHeight    =   7335
-   ClientLeft      =   60
-   ClientTop       =   405
+   ClientLeft      =   -15
+   ClientTop       =   330
    ClientWidth     =   9600
    BeginProperty Font 
       Name            =   "Segoe UI"
@@ -17,9 +18,12 @@ Begin VB.Form Form1
    Icon            =   "Form1.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   489
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   640
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows-Standard
    Begin VB.CommandButton Command1 
       Caption         =   "Restart"
@@ -65,15 +69,6 @@ Begin VB.Form Form1
    End
    Begin VB.Frame Frame1 
       Caption         =   "Player 1"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   1095
       Left            =   120
       TabIndex        =   1
@@ -129,6 +124,24 @@ Begin VB.Form Form1
       Top             =   0
       Width           =   9600
    End
+   Begin VB.Label Label10 
+      AutoSize        =   -1  'True
+      Caption         =   "FPS: "
+      Height          =   255
+      Left            =   5880
+      TabIndex        =   13
+      Top             =   6480
+      Width           =   405
+   End
+   Begin VB.Label Label9 
+      AutoSize        =   -1  'True
+      Caption         =   "Stars: "
+      Height          =   255
+      Left            =   2640
+      TabIndex        =   12
+      Top             =   6480
+      Width           =   540
+   End
    Begin VB.Label Label7 
       Alignment       =   2  'Zentriert
       AutoSize        =   -1  'True
@@ -152,10 +165,10 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   2280
+      Left            =   4200
       TabIndex        =   10
       Top             =   6300
-      Width           =   5025
+      Width           =   1065
    End
 End
 Attribute VB_Name = "Form1"
@@ -166,14 +179,13 @@ Attribute VB_Exposed = False
 Option Explicit
 Implements IListenXTimer
 
+Private Declare Sub RtlMoveMemory Lib "kernel32" (pDst As Any, pSrc As Any, ByVal bytlength As Long)
 Private Declare Function GetAsyncKeyState Lib "user32.dll" (ByVal vKey As Long) As Long
-
 Private Declare Function timeBeginPeriod Lib "Winmm.dll" (ByVal uPeriod As Long) As Long
+Private Declare Function timeGetTime Lib "Winmm.dll" () As Long
 Private Declare Function GetCurrentThread Lib "kernel32.dll" () As Long
 Private Declare Function SetThreadPriority Lib "kernel32.dll" (ByVal hThread As Long, ByVal nPriority As Long) As Long
 Private Declare Function SetThreadAffinityMask Lib "kernel32.dll" (ByVal hThread As Long, ByVal dwThreadAffinityMask As Long) As Long
-
-Private Declare Function timeGetTime Lib "Winmm.dll" () As Long
 
 Private Type Rocket
     X As Long
@@ -204,6 +216,7 @@ Private Const FRAMEHEIGHT As Long = 400
 
 Private TIMERINTERVAL As Long '= 20
 Private NUMSTARS As Long '= 32 '36
+Private MAXTIME  As Long
 
 Private Const ROCKETWIDTH As Long = 20
 Private Const ROCKETHEIGHT As Long = 28
@@ -321,19 +334,20 @@ End Sub
 
 Private Sub Command1_Click()
 Set XTimer = New XTimer: XTimer.New_ Me, 1000 / TIMERINTERVAL
-
+Label9.Caption = "Stars: " & NUMSTARS
+Label10.Caption = "FPS: " & TIMERINTERVAL
 Form1.Command1.Enabled = False
 
 Call Reset1
-Player1.Points = 0
+'Player1.Points = 0
 Call Reset2
-Player2.Points = 0
+'Player2.Points = 0
 
 Call InitStarfield
 
-Form1.Label1 = "0"
-Form1.Label2 = "0"
-Form1.Label8 = "45"
+Form1.Label1 = Player1.Points '"0"
+Form1.Label2 = Player2.Points '"0"
+Form1.Label8 = MAXTIME
 
 RespawnDelay1 = False
 RespawnDelay2 = False
@@ -342,12 +356,15 @@ RespawnDelay2 = False
 XTimer.Enabled = True
 TIMERINTERVAL = TIMERINTERVAL * 1.2
 NUMSTARS = NUMSTARS * 1.2
+MAXTIME = MAXTIME * 1.2
 End Sub
 
 Private Sub Form_Load()
 
 TIMERINTERVAL = 20
 NUMSTARS = 30
+MAXTIME = 60
+Label8.Caption = MAXTIME
 
 Dim FileNum As Integer
 Dim hThread As Long
@@ -366,18 +383,30 @@ Call InitStarfield
 ReDim RocketBitmap(ROCKETWIDTH * ROCKETHEIGHT)
 
 FileNum = FreeFile
-Open App.Path & "\Rocket.bin" For Binary As FileNum
-    Get #FileNum, , RocketBitmap
-Close
+Dim pfn As String: pfn = App.Path & "\Rocket.bin"
+If FileExists(pfn) Then
+    Open pfn For Binary As FileNum
+        Get #FileNum, , RocketBitmap
+    Close
+Else
+    Dim bytes() As Byte: bytes = LoadResData(2, "CUSTOM")
+    RtlMoveMemory RocketBitmap(0), bytes(0), UBound(bytes) + 1
+End If
 
 Call Reset1
 Call Reset2
 
-Form1.Show
+'Form1.Show
 
 'Call MainLoop
-IListenXTimer_XTimer
+'IListenXTimer_XTimer
 End Sub
+
+Private Function FileExists(ByVal FileName As String) As Boolean
+    On Error Resume Next
+    FileExists = Not CBool(GetAttr(FileName) And (vbDirectory Or vbVolume))
+    On Error GoTo 0
+End Function
 
 Private Function MakeStar(GoRight As Boolean) As Star
 
