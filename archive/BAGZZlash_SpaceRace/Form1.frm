@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   3  'Fester Dialog
-   Caption         =   "Space race"
+   Caption         =   "Atari Space Race 1973"
    ClientHeight    =   7335
    ClientLeft      =   -15
    ClientTop       =   330
@@ -124,23 +124,32 @@ Begin VB.Form Form1
       Top             =   0
       Width           =   9600
    End
+   Begin VB.Label Label11 
+      AutoSize        =   -1  'True
+      Caption         =   "Round: "
+      Height          =   255
+      Left            =   5880
+      TabIndex        =   14
+      Top             =   6360
+      Width           =   675
+   End
    Begin VB.Label Label10 
       AutoSize        =   -1  'True
       Caption         =   "FPS: "
       Height          =   255
-      Left            =   5880
+      Left            =   2400
       TabIndex        =   13
-      Top             =   6480
+      Top             =   6720
       Width           =   405
    End
    Begin VB.Label Label9 
       AutoSize        =   -1  'True
-      Caption         =   "Stars: "
+      Caption         =   "Asteroids: "
       Height          =   255
-      Left            =   2640
+      Left            =   2400
       TabIndex        =   12
-      Top             =   6480
-      Width           =   540
+      Top             =   6360
+      Width           =   930
    End
    Begin VB.Label Label7 
       Alignment       =   2  'Zentriert
@@ -168,7 +177,7 @@ Begin VB.Form Form1
       Left            =   4200
       TabIndex        =   10
       Top             =   6300
-      Width           =   1065
+      Width           =   1185
    End
 End
 Attribute VB_Name = "Form1"
@@ -231,8 +240,7 @@ Private RespawnDelay1 As Boolean
 Private RespawnDelay2 As Boolean
 Private RespawnDelay1Counter As Long
 Private RespawnDelay2Counter As Long
-
-Dim Abort As Boolean
+Private Rounds As Byte
 Private XTimer As XTimer
 
 Private Sub HandleInput()
@@ -334,8 +342,9 @@ End Sub
 
 Private Sub Command1_Click()
 Set XTimer = New XTimer: XTimer.New_ Me, 1000 / TIMERINTERVAL
-Label9.Caption = "Stars: " & NUMSTARS
+Label9.Caption = "Asteroids: " & NUMSTARS
 Label10.Caption = "FPS: " & TIMERINTERVAL
+Label11.Caption = "Round: " & Rounds
 Form1.Command1.Enabled = False
 
 Call Reset1
@@ -360,7 +369,7 @@ MAXTIME = MAXTIME * 1.2
 End Sub
 
 Private Sub Form_Load()
-
+Me.Caption = "Atari Space Race 1973 v" & App.Major & "." & App.Minor & "." & App.Revision
 TIMERINTERVAL = 20
 NUMSTARS = 30
 MAXTIME = 60
@@ -395,11 +404,8 @@ End If
 
 Call Reset1
 Call Reset2
-
-'Form1.Show
-
-'Call MainLoop
-'IListenXTimer_XTimer
+Set XTimer = New XTimer: XTimer.New_ Me, 1000 / TIMERINTERVAL
+Rounds = 1
 End Sub
 
 Private Function FileExists(ByVal FileName As String) As Boolean
@@ -509,7 +515,7 @@ Next
 
 End Sub
 
-Private Function CheckCollusion() As Long
+Private Function CheckCollision() As Long
 
 Dim XPix As Long
 Dim YPix As Long
@@ -522,11 +528,11 @@ For XPix = 0 To ROCKETWIDTH - 1
         If Not (RocketBitmap(SourceOffset).Red = 255 And RocketBitmap(SourceOffset).Green = 0 And RocketBitmap(SourceOffset).Blue = 255) Then
             For i = 0 To UBound(Starfield)
                 If Starfield(i).X = XPix + Player1.X And Starfield(i).Y = YPix + Player1.Y Then
-                    CheckCollusion = 1
+                    CheckCollision = 1
                     Exit Function
                 End If
                 If Starfield(i).X = XPix + Player2.X And Starfield(i).Y = YPix + Player2.Y Then
-                    CheckCollusion = 2
+                    CheckCollision = 2
                     Exit Function
                 End If
             Next
@@ -536,9 +542,9 @@ Next
 
 End Function
 
-Private Sub MakeFrame()
+Friend Sub MakeFrame()
 
-Dim Collusion As Long
+Dim Collision As Long
 
 FrameBuffer = Background
 
@@ -565,9 +571,9 @@ If RespawnDelay2 Then
     End If
 End If
 
-Collusion = CheckCollusion
-If Collusion = 1 Then RespawnDelay1 = True
-If Collusion = 2 Then RespawnDelay2 = True
+Collision = CheckCollision
+If Collision = 1 Then RespawnDelay1 = True
+If Collision = 2 Then RespawnDelay2 = True
 
 Call DrawRockets
 
@@ -584,21 +590,32 @@ Private Sub IListenXTimer_XTimer()
     Call HandleInput
     Call MakeFrame
     If Form1.Label8 = "0" Then
+        XTimer.Enabled = False
         If Player1.Points <> Player2.Points Then
             MsgBox "Player " & IIf(Player1.Points > Player2.Points, "1", "2") & " wins.", vbInformation
         Else
             MsgBox "The game is a tie.", vbInformation
         End If
-        XTimer.Enabled = False
+        Rounds = Rounds + 1
         Form1.Command1.Enabled = True
+        Command1.SetFocus
         Exit Sub
     End If
     DoEvents
-    If Abort Then XTimer.Enabled = False 'Exit Do
 End Sub
 
-Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+'Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+'    Dim en As Boolean: If Not XTimer Is Nothing Then en = XTimer.Disable
+'    Dim mr As VbMsgBoxResult: mr = MsgBox("Are you sure you want to quit?", vbOKCancel)
+'    If mr = vbCancel Then
+'        Cancel = 1
+'        If Not XTimer Is Nothing Then XTimer.Enabled = en
+'    'Else
+'    End If
+'End Sub
 
-Abort = True
-
+Private Sub Form_Unload(Cancel As Integer)
+    If Not XTimer Is Nothing Then XTimer.Enabled = False
+    Set XTimer = Nothing
+    End
 End Sub

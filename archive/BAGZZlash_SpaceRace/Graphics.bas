@@ -59,8 +59,7 @@ Public Background() As RGB
 
 Sub Main()
     Form1.Show
-    'Form1.MainLoop
-    'Form1.Command1.Value = True
+    Form1.MakeFrame
 End Sub
 
 Public Function GetRGB(Col As Long) As RGB
