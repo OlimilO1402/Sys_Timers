@@ -64,6 +64,7 @@ End Property
 what is the difference between XTimer and XTimerL?  
 With the class XTimerL, if you set 450 Frames per second, it does just about 333 FPS,   
 because 450 fps are 2.222 ms so it rounds up to 3 ms. Switch to the "Timer (Currency)" and it does the real 450 FPS.  
+On the other hand XTimerL uses a 32bit Long for storing the time and 32bit-calculations are essentially faster than 64bit calculations in a 32bit app.
   
 As a real world example on how to use the class XTimer, there is a little game called SpaceRace1973 made by BAGZZlash. 
 It is inspired by the game Space Race from Atari in 1973. You can download BAGZZlashs version [here](http://www.activevb.de/cgi-bin/upload/download.pl?id=3961). The version with XTimer you can find in the directory "archive".  
