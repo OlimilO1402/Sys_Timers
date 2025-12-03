@@ -44,10 +44,10 @@ End Type
 
 Private Const DIB_RGB_COLORS As Long = 0
 
-Private Declare Function CreateDIBSection Lib "gdi32.dll" (ByVal hdc As Long, ByRef pbmi As BITMAPINFO, ByVal usage As Long, ByVal ppvBits As Long, ByVal hSection As Long, ByVal Offset As Long) As Long
-Private Declare Function SetDIBits Lib "gdi32.dll" (ByVal hdc As Long, ByVal hBitmap As Long, ByVal nStartScan As Long, ByVal nNumScans As Long, ByRef lpBits As Any, ByRef lpBI As BITMAPINFO, ByVal wUsage As Long) As Long
-Private Declare Function OleCreatePictureIndirect Lib "oleaut32.dll" (ByRef lpPictDesc As PICTDESC, ByRef riid As IID, ByVal fOwn As Long, ByRef lplpvObj As Object) As Long
-Private Declare Function DeleteObject Lib "gdi32.dll" (ByVal hObject As Long) As Long
+Private Declare Function CreateDIBSection Lib "gdi32" (ByVal hdc As Long, ByRef pbmi As BITMAPINFO, ByVal usage As Long, ByVal ppvBits As Long, ByVal hSection As Long, ByVal Offset As Long) As Long
+Private Declare Function SetDIBits Lib "gdi32" (ByVal hdc As Long, ByVal hBitmap As Long, ByVal nStartScan As Long, ByVal nNumScans As Long, ByRef lpBits As Any, ByRef lpBI As BITMAPINFO, ByVal wUsage As Long) As Long
+Private Declare Function OleCreatePictureIndirect Lib "oleaut32" (ByRef lpPictDesc As PICTDESC, ByRef riid As IID, ByVal fOwn As Long, ByRef lplpvObj As Object) As Long
+Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Long
 
 Private tBITMAPINFO As BITMAPINFO
 Private tPictDesc As PICTDESC
