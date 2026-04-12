@@ -72,4 +72,4 @@ It is inspired by the game Space Race from Atari in 1973. You can download BAGZZ
 Maybe you also want to have a look at the repo [Sys_Stopwatch](https://github.com/OlimilO1402/Sys_StopWatch) which uses the QueryPerformance winapi either.  
   
 ![Timers Image](Resources/Timers.png "Timers Image")
-![SpaceRace Image](Resources/SpaceRace.png "SpaceRace Image")
+![SpaceRace Image](Resources/SpaceRace2.png "SpaceRace Image")
