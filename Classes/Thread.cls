@@ -52,33 +52,39 @@ Private Const THREAD_SET_THREAD_TOKEN       As Long = (&H80)
 
 'Private Const THREAD_ALL_ACCESS             As Long = (STANDARD_RIGHTS_REQUIRED Or SYNCHRONIZE Or &H3FF)
 
-
-'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread
-Private Declare Function GetCurrentThread Lib "kernel32" () As LongPtr
-
-'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid
-Private Declare Function GetCurrentThreadId Lib "kernel32" () As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodethread
-Private Declare Function GetExitCodeThread Lib "kernel32" (ByVal hThread As LongPtr, lpExitCode_out As Long) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadpriority
-Private Declare Function GetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadpriority
-Private Declare Function SetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr, ByVal nPriority As Long) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask
-'BOOL GetProcessAffinityMask(
-'  [in]  HANDLE     hProcess,
-'  [out] PDWORD_PTR lpProcessAffinityMask,
-'  [out] PDWORD_PTR lpSystemAffinityMask
-');
-Private Declare Function GetProcessAffinityMask Lib "kernel32" (ByVal hProcess As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadaffinitymask
-Private Declare Function SetThreadAffinityMask Lib "kernel32" (ByVal hThread As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
-
+#If VBA7 Then
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread
+    Private Declare PtrSafe Function GetCurrentThread Lib "kernel32" () As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid
+    Private Declare PtrSafe Function GetCurrentThreadId Lib "kernel32" () As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodethread
+    Private Declare PtrSafe Function GetExitCodeThread Lib "kernel32" (ByVal hThread As LongPtr, lpExitCode_out As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadpriority
+    Private Declare PtrSafe Function GetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadpriority
+    Private Declare PtrSafe Function SetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr, ByVal nPriority As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask
+    'BOOL GetProcessAffinityMask([in] HANDLE hProcess, [out] PDWORD_PTR lpProcessAffinityMask, [out] PDWORD_PTR lpSystemAffinityMask);
+    Private Declare PtrSafe Function GetProcessAffinityMask Lib "kernel32" (ByVal hProcess As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadaffinitymask
+    Private Declare PtrSafe Function SetThreadAffinityMask Lib "kernel32" (ByVal hThread As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
+#Else
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread
+    Private Declare Function GetCurrentThread Lib "kernel32" () As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid
+    Private Declare Function GetCurrentThreadId Lib "kernel32" () As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodethread
+    Private Declare Function GetExitCodeThread Lib "kernel32" (ByVal hThread As LongPtr, lpExitCode_out As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadpriority
+    Private Declare Function GetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadpriority
+    Private Declare Function SetThreadPriority Lib "kernel32" (ByVal hThread As LongPtr, ByVal nPriority As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask
+    'BOOL GetProcessAffinityMask([in] HANDLE hProcess, [out] PDWORD_PTR lpProcessAffinityMask, [out] PDWORD_PTR lpSystemAffinityMask);
+    Private Declare Function GetProcessAffinityMask Lib "kernel32" (ByVal hProcess As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadaffinitymask
+    Private Declare Function SetThreadAffinityMask Lib "kernel32" (ByVal hThread As LongPtr, ByVal dwThreadAffinityMask As Long) As Long
+#End If
 Private m_hThread As LongPtr
 Private m_ThrId   As Long
 Private m_AffinityMask As Long

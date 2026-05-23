@@ -136,10 +136,10 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Resize()
-    Dim L As Single, T As Single: T = Picture1.Top
+    Dim L As Single, t As Single: t = Picture1.Top
     Dim W As Single: W = Me.ScaleWidth
-    Dim H As Single: H = Me.ScaleHeight - T
-    If W > 0 And H > 0 Then Picture1.Move L, T, W, H
+    Dim H As Single: H = Me.ScaleHeight - t
+    If W > 0 And H > 0 Then Picture1.Move L, t, W, H
 End Sub
 
 Private Sub FillCmbFPS(CmbFPS As ComboBox)
