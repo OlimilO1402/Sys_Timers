@@ -182,6 +182,20 @@ Private Sub Form_Unload(Cancel As Integer)
     BtnStop_Click
 End Sub
 
+Private Sub OptDTypCurrency_Click()
+    Dim en As Boolean: en = m_XTimer.Disable
+    Set m_XTimer = MNew.XTimer(Me, m_XTimer.Interval)
+    m_XTimer.Enabled = en
+End Sub
+
+Private Sub OptDTypLong_Click()
+    Dim en As Boolean: en = m_XTimer.Disable
+    Set m_XTimer = MNew.XTimerL(Me, m_XTimer.Interval)
+    m_XTimer.Enabled = en
+End Sub
+
+' v ' ############################## ' v '    Implements IListenXTimer    ' v ' ############################## ' v '
+
 Private Sub IListenXTimer_Frames(ByVal FPS As Long)
     LblFPS.Caption = "FPS: " & FPS & "; Interval: " & Format(m_XTimer.Interval, "0.000") & "ms"
 End Sub
@@ -193,17 +207,5 @@ Private Sub IListenXTimer_XTimer()
         Picture1.PSet (X, Y), vbWhite
     Next
     X = X + 1
-End Sub
-
-Private Sub OptDTypCurrency_Click()
-    Dim en As Boolean: en = m_XTimer.Disable
-    Set m_XTimer = MNew.XTimer(Me, m_XTimer.Interval)
-    m_XTimer.Enabled = en
-End Sub
-
-Private Sub OptDTypLong_Click()
-    Dim en As Boolean: en = m_XTimer.Disable
-    Set m_XTimer = MNew.XTimerL(Me, m_XTimer.Interval)
-    m_XTimer.Enabled = en
 End Sub
 

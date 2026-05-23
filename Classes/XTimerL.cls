@@ -14,14 +14,23 @@ Attribute VB_Exposed = False
 Option Explicit
 'ActiveVB Class XTimer New Version 2025-03, by BAGZZLash, idiv and OlimilO
 Implements XTimer
-'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timebeginperiod
-Private Declare Function timeBeginPeriod Lib "winmm" (ByVal uPeriod As Long) As Long
-'The timeBeginPeriod function requests a minimum resolution for periodic timers
-'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timegettime
-Private Declare Function timeGetTime Lib "winmm.dll" () As Long
-'The timeGetTime function retrieves the system time, in milliseconds. The system time is the time elapsed since Windows was started.
-'Private m_Listeners As Collection 'Of IListenXTimer
-
+#If VBA7 Then
+    'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timebeginperiod
+    Private Declare PtrSafe Function timeBeginPeriod Lib "winmm" (ByVal uPeriod As Long) As Long
+    'The timeBeginPeriod function requests a minimum resolution for periodic timers
+    'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timegettime
+    Private Declare PtrSafe Function timeGetTime Lib "winmm.dll" () As Long
+    'The timeGetTime function retrieves the system time, in milliseconds. The system time is the time elapsed since Windows was started.
+    'Private m_Listeners As Collection 'Of IListenXTimer
+#Else
+    'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timebeginperiod
+    Private Declare Function timeBeginPeriod Lib "winmm" (ByVal uPeriod As Long) As Long
+    'The timeBeginPeriod function requests a minimum resolution for periodic timers
+    'https://learn.microsoft.com/en-us/windows/win32/api/timeapi/nf-timeapi-timegettime
+    Private Declare Function timeGetTime Lib "winmm.dll" () As Long
+    'The timeGetTime function retrieves the system time, in milliseconds. The system time is the time elapsed since Windows was started.
+    'Private m_Listeners As Collection 'Of IListenXTimer
+#End If
 
 
 
@@ -145,4 +154,3 @@ Private Property Get XTimer_Listener() As IListenXTimer
     Set XTimer_Listener = Me.Listener
 End Property
 ' ^ ' ############################## ' ^ '    Implements XTimer    ' ^ ' ############################## ' ^ '
-
