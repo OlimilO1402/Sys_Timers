@@ -1,12 +1,12 @@
 Type=Exe
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\SysWOW64\stdole2.tlb#OLE Automation
 Form=Forms\FMain.frm
-Module=MPtr; ..\Ptr_Pointers\Modules\MPtr.bas
 Module=MNew; Modules\MNew.bas
-Class=Thread; Classes\Thread.cls
-Class=XTimer; Classes\XTimer.cls
-Class=IListenXTimer; Classes\IListenXTimer.cls
-Class=XTimerL; Classes\XTimerL.cls
+Module=MPtr; ..\_Core\Syst\MPtr.bas
+Class=Thread; ..\_Core\Syst\Thread.cls
+Class=XTimer; ..\_Core\Syst\XTimer.cls
+Class=IListenXTimer; ..\_Core\Syst\IListenXTimer.cls
+Class=XTimerL; ..\_Core\Syst\XTimerL.cls
 ResFile32="Resources\MyRes.res"
 IconForm="FMain"
 Startup="FMain"
