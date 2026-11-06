@@ -119,6 +119,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer):            Handl
 Private Sub OptDTypCurrency_KeyDown(KeyCode As Integer, Shift As Integer): HandleMediaPlayPause KeyCode: End Sub
 Private Sub OptDTypLong_KeyDown(KeyCode As Integer, Shift As Integer):     HandleMediaPlayPause KeyCode: End Sub
 Private Sub Picture1_KeyDown(KeyCode As Integer, Shift As Integer):        HandleMediaPlayPause KeyCode: End Sub
+
 Private Sub HandleMediaPlayPause(KeyCode As Integer)
     If KeyCode = VK_MEDIA_PLAY_PAUSE Then BtnPlayPause_Click
 End Sub
